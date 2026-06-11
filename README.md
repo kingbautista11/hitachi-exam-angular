@@ -46,6 +46,24 @@ routes), `@angular/animations`, `@angular/common/http`, SCSS.
 
 Full details are in [`SECURITY.md`](SECURITY.md).
 
+## Performance
+
+- **Lazy-loaded routes** — every screen is a `loadComponent` chunk, so the
+  initial bundle only ships the splash/login path and the rest loads on demand.
+- **OnPush + signals** — all components use `ChangeDetectionStrategy.OnPush` with
+  signal state, so change detection runs only when inputs or signals actually
+  change instead of on every event.
+- **Coalesced change detection** — `provideZoneChangeDetection({ eventCoalescing:
+  true })` collapses bursts of events into a single CD pass.
+- **Browser HTTP cache** — `provideHttpClient(withFetch())` plus `loading="lazy"`
+  on images means avatars and banners are fetched once and served from cache on
+  repeat views.
+- **Compositor-friendly animations** — the splash wave animates only `transform`
+  inside `contain: paint` layers, keeping work off the main thread; animations
+  also honour `prefers-reduced-motion`.
+- **AOT production build** — `ng build` is AOT-compiled, minified, and
+  tree-shaken, with bundle budgets enforced in `angular.json`.
+
 ## Clone, install, and run
 
 ### Prerequisites
