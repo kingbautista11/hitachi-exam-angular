@@ -100,41 +100,6 @@
   cursor: pointer;
 }
 
-// ---- Tablet: larger launcher --------------------------------------------
-@media (min-width: t.$bp-tablet) and (max-width: t.$bp-tablet-max) {
-  .appbar .title {
-    font-size: 20px;
-  }
-
-  .launcher {
-    gap: 22px;
-    padding: 48px;
-  }
-
-  .chip,
-  .chip-img {
-    width: 112px;
-    height: 112px;
-  }
-
-  .chip {
-    font-size: 56px;
-  }
-
-  .host {
-    font-size: 20px;
-  }
-
-  .note {
-    font-size: 15px;
-  }
-
-  .open {
-    padding: 18px 30px;
-    font-size: 17px;
-  }
-}
-
 // ---- Desktop: framed launcher card --------------------------------------
 @media (min-width: 900px) {
   :host {

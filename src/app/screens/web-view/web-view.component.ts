@@ -7,10 +7,11 @@ import {
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
-// Secure link launcher. Browsers can't embed the full youtube.com /
-// facebook.com / open.spotify.com sites (X-Frame-Options / frame-ancestors), so
-// this shows a clean preview and opens the real site in a new tab with
-// `noopener,noreferrer`. Only HTTPS URLs are allowed.
+/// Secure link launcher. Browsers can't embed the full youtube.com /
+/// facebook.com / open.spotify.com sites (X-Frame-Options / frame-ancestors),
+/// so this shows a brand preview and opens the real site in a new tab with
+/// `noopener,noreferrer`. HTTPS-only is enforced, mirroring the original
+/// NavigationDelegate.
 @Component({
   selector: 'app-web-view',
   standalone: true,
