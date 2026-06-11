@@ -1,0 +1,38 @@
+<div class="screen">
+  <header class="appbar" [style.background]="color()">
+    <button type="button" class="back" (click)="back()" aria-label="Back">
+      <img src="assets/ic-arrow-back.svg" alt="" />
+    </button>
+    <span class="title">{{ title() }}</span>
+  </header>
+
+  <div class="launcher">
+    @if (blocked()) {
+      <p class="note">This link can't be opened securely.</p>
+    } @else {
+      @if (asset()) {
+        <img
+          class="chip-img"
+          [src]="asset()"
+          [alt]="title()"
+          [style.box-shadow]="'0 16px 40px ' + color() + '55'"
+        />
+      } @else {
+        <div class="chip" [style.background]="color()" [style.box-shadow]="'0 16px 40px ' + color() + '55'">
+          {{ initial() }}
+        </div>
+      }
+      <div class="host">{{ hostname() }}</div>
+      <p class="note">For your security, this site opens in a new browser tab.</p>
+      <button
+        type="button"
+        class="open"
+        [style.background]="color()"
+        [style.box-shadow]="'0 8px 22px ' + color() + '52'"
+        (click)="open()"
+      >
+        Open {{ title() }} &#8599;
+      </button>
+    }
+  </div>
+</div>

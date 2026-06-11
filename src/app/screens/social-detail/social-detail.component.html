@@ -1,0 +1,37 @@
+<div class="screen">
+  <header class="appbar" [style.background]="color()">
+    <button type="button" class="back" (click)="back()" aria-label="Back">
+      <img src="assets/ic-arrow-back.svg" alt="" />
+    </button>
+    <span class="title">{{ name() }}</span>
+  </header>
+
+  <!-- Full-width banner image from the API, with a colored fallback. -->
+  <div class="banner" [style.background]="color()">
+    @if (imgUrl() && !bannerFailed()) {
+      <img
+        class="banner-img"
+        [src]="imgUrl()"
+        [alt]="name()"
+        loading="lazy"
+        (error)="onBannerError()"
+      />
+    } @else {
+      <img class="banner-fallback" [src]="asset()" [alt]="name()" />
+    }
+  </div>
+
+  <div class="description">{{ description() }}</div>
+
+  <div class="cta">
+    <button
+      type="button"
+      class="visit"
+      [style.background]="color()"
+      [style.box-shadow]="'0 8px 20px ' + color() + '52'"
+      (click)="visit()"
+    >
+      Visit {{ name() }}
+    </button>
+  </div>
+</div>

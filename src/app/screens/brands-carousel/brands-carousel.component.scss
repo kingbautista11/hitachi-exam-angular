@@ -1,0 +1,224 @@
+@use 'theme' as t;
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #fff;
+}
+
+.appbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 12px;
+  padding-top: calc(14px + env(safe-area-inset-top));
+  background: t.$orange;
+  color: #fff;
+
+  .back {
+    background: transparent;
+    border: 0;
+    line-height: 1;
+    padding: 4px 8px;
+    cursor: pointer;
+
+    img {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+}
+
+.hint {
+  margin: 24px 0 16px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 13px;
+}
+
+// ---- Carousel (enlargeCenterPage + viewportFraction 0.6) ----------------
+.viewport {
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  height: 100%;
+  transition: transform 450ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.card-slot {
+  flex: 0 0 60%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 6px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.82);
+  opacity: 0.55;
+  transition:
+    transform 450ms cubic-bezier(0.2, 0.8, 0.3, 1),
+    opacity 450ms ease;
+
+  &.active {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}
+
+.brand-name {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+  transition:
+    width 300ms ease,
+    background 300ms ease;
+
+  &.active {
+    width: 18px;
+    background: t.$orange;
+  }
+}
+
+.cta {
+  margin-top: auto;
+  padding: 24px;
+}
+
+.visit {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 17px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  background: t.$orange;
+  box-shadow: t.soft-shadow(8px, 20px, 0.36, t.$orange);
+  cursor: pointer;
+}
+
+// ---- Tablet: larger carousel --------------------------------------------
+@media (min-width: t.$bp-tablet) and (max-width: t.$bp-tablet-max) {
+  .appbar {
+    padding: 18px 20px;
+    padding-top: calc(18px + env(safe-area-inset-top));
+
+    .title {
+      font-size: 20px;
+    }
+  }
+
+  .hint {
+    margin: 32px 0 20px;
+    font-size: 14px;
+  }
+
+  .viewport {
+    height: 340px;
+  }
+
+  .brand-name {
+    font-size: 24px;
+  }
+
+  .cta {
+    padding: 32px;
+  }
+
+  .visit {
+    max-width: 420px;
+    margin: 0 auto;
+    display: block;
+  }
+}
+
+// ---- Desktop: larger centered carousel ----------------------------------
+@media (min-width: 900px) {
+  :host {
+    display: flex;
+    width: 100%;
+    max-width: 720px;
+    min-height: 600px;
+    max-height: calc(100dvh - 96px);
+    border-radius: 28px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow:
+      0 50px 130px rgba(0, 0, 0, 0.6),
+      0 2px 10px rgba(0, 0, 0, 0.35);
+  }
+
+  .screen {
+    flex: 1;
+    min-height: auto;
+  }
+
+  .hint {
+    margin-top: 40px;
+    font-size: 14px;
+  }
+
+  .viewport {
+    height: 360px;
+  }
+
+  .brand-name {
+    font-size: 26px;
+  }
+
+  .cta {
+    padding: 32px 56px 48px;
+  }
+
+  .visit {
+    max-width: 360px;
+    margin: 0 auto;
+    display: block;
+  }
+}

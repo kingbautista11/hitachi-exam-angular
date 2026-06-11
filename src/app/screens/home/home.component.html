@@ -1,0 +1,82 @@
+@if (loggingOut()) {
+  <div class="screen">
+    <app-loading-view label="Logging Out"></app-loading-view>
+  </div>
+} @else {
+  <div class="screen no-select">
+    <!-- Header: avatar (tap = logout), name, id -->
+    <div class="header">
+      <div class="avatar" appPressable [pressScale]="0.9" (click)="openLogoutSheet()">
+        @if (avatarUrl()) {
+          <img [src]="avatarUrl()" alt="Profile" loading="lazy" />
+        } @else {
+          <span class="avatar-fallback">&#128100;</span>
+        }
+      </div>
+      <div class="identity">
+        <div class="name">{{ userName() }}</div>
+        @if (userId()) {
+          <div class="id">{{ userId() }}</div>
+        }
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="body">
+      @if (loading()) {
+        <app-loading-view label="Fetching Data"></app-loading-view>
+      } @else if (error()) {
+        <div class="error">{{ error() }}</div>
+      } @else {
+        <div class="grid">
+          <div class="grid-row">
+            @for (tile of brandTiles.slice(0, 2); track tile.name) {
+              <div
+                class="tile brand"
+                appPressable
+                [style.box-shadow]="'0 10px 22px ' + tile.color + '38'"
+                (click)="openSocial(tile)"
+              >
+                <img [src]="tile.asset" [alt]="tile.name" />
+              </div>
+            }
+          </div>
+          <div class="grid-row">
+            <div
+              class="tile brand"
+              appPressable
+              [style.box-shadow]="'0 10px 22px ' + brandTiles[2].color + '38'"
+              (click)="openSocial(brandTiles[2])"
+            >
+              <img [src]="brandTiles[2].asset" [alt]="brandTiles[2].name" />
+            </div>
+            <div
+              class="tile others"
+              appPressable
+              [style.background]="orange"
+              [style.box-shadow]="'0 10px 22px ' + orange + '38'"
+              (click)="openBrands()"
+              aria-label="Others"
+            >
+              <img class="login-glyph" src="assets/ic-login.svg" alt="" />
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}
+
+<!-- Logout action sheet -->
+@if (showLogoutSheet()) {
+  <div class="sheet-backdrop" (click)="cancelLogout()">
+    <div class="sheet" (click)="$event.stopPropagation()">
+      <button type="button" class="sheet-action destructive" (click)="confirmLogout()">
+        Logout
+      </button>
+      <button type="button" class="sheet-action cancel" (click)="cancelLogout()">
+        Cancel
+      </button>
+    </div>
+  </div>
+}

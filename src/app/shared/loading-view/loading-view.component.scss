@@ -1,0 +1,54 @@
+@use 'theme' as t;
+
+:host {
+  display: flex;
+  flex: 1;
+  // Stretch to fill the parent on the cross axis instead of pinning a fixed
+  // height. An explicit `height: 100%` collapses to content height inside a
+  // flex-row parent whose height isn't a resolvable percentage base (e.g. the
+  // home `.body`), which pushed the spinner to the top. `align-self: stretch`
+  // fills the available space so the loader truly centers in any flex parent.
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 3px solid rgba(t.$facebook, 0.18);
+  border-top-color: t.$facebook;
+  animation: spin 0.9s linear infinite;
+
+  &.failed {
+    border-color: rgba(#ff0000, 0.18);
+    border-top-color: #ff0000;
+  }
+}
+
+.label {
+  margin: 22px 0 0;
+  color: t.$subtle;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+
+  &.failed {
+    color: #ff0000;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

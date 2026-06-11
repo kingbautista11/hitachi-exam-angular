@@ -1,0 +1,273 @@
+@use 'theme' as t;
+
+.screen {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #fff;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 32px;
+}
+
+// Hero is desktop-only.
+.hero {
+  display: none;
+}
+
+// Spacer flex weights control the vertical rhythm of the column.
+.spacer-3 {
+  flex: 3;
+}
+.spacer-2 {
+  flex: 2;
+}
+
+.username {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: t.$ink;
+  background: t.$surface;
+  border: 1.4px solid t.$hairline;
+  border-radius: 14px;
+  padding: 18px;
+  outline: none;
+  transition: border-color 150ms ease;
+
+  &::placeholder {
+    color: rgba(t.$subtle, 0.7);
+    font-weight: 500;
+  }
+
+  &:focus {
+    border: 1.8px solid t.$facebook;
+  }
+
+  &.error,
+  &.error:focus {
+    border-color: #ff0000;
+  }
+}
+
+.field-error {
+  margin: 10px 0 0;
+  text-align: center;
+  color: #ff0000;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.enter {
+  width: 100%;
+  margin-top: 16px;
+  padding: 18px;
+  border: 0;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  color: t.$subtle;
+  background: #edeff1;
+  cursor: default;
+  transition:
+    box-shadow 220ms ease,
+    background 220ms ease,
+    color 220ms ease;
+
+  &.enabled {
+    color: #fff;
+    background: t.$enter-green;
+    cursor: pointer;
+    box-shadow: t.soft-shadow(8px, 20px, 0.35, t.$enter-green);
+  }
+}
+
+// ---- iOS-style error alert ----------------------------------------------
+.alert-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fade 180ms ease-out;
+}
+
+.alert {
+  width: 270px;
+  background: #f8f8f8;
+  border-radius: 14px;
+  text-align: center;
+  overflow: hidden;
+  animation: pop 200ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.alert-title {
+  font-size: 17px;
+  font-weight: 700;
+  padding: 18px 18px 4px;
+}
+
+.alert-body {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.7);
+  padding: 4px 18px 16px;
+}
+
+.alert-action {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid #d0d0d0;
+  background: transparent;
+  color: #ff3b30;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 12px;
+  cursor: pointer;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// ---- Tablet: centered single column, scaled up --------------------------
+@media (min-width: t.$bp-tablet) and (max-width: t.$bp-tablet-max) {
+  .content {
+    padding: 0 48px;
+  }
+
+  .inline-logo {
+    transform: scale(1.15);
+    margin-bottom: 12px;
+  }
+
+  // Cap the field width so inputs don't stretch the full 640px column.
+  .username,
+  .enter {
+    max-width: 420px;
+    font-size: 17px;
+    padding: 20px;
+  }
+
+  .field-error {
+    max-width: 420px;
+  }
+}
+
+// ---- Desktop: floating two-pane card -----------------------------------
+@media (min-width: 900px) {
+  :host {
+    display: flex;
+    width: 100%;
+    max-width: 940px;
+    min-height: 580px;
+    max-height: calc(100dvh - 96px);
+    border-radius: 28px;
+    overflow: hidden;
+    // Transparent so no light layer sits behind the dark hero and bleeds at
+    // the rounded corners; each pane paints its own background.
+    background: transparent;
+    box-shadow:
+      0 50px 130px rgba(0, 0, 0, 0.6),
+      0 2px 10px rgba(0, 0, 0, 0.35);
+  }
+
+  .screen {
+    flex: 1;
+    min-height: auto;
+    height: auto;
+    background: transparent;
+  }
+
+  .hero {
+    flex: 1.05;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 26px;
+    padding: 56px;
+    color: #fff;
+    background:
+      radial-gradient(
+        30rem 30rem at 20% 18%,
+        rgba(255, 0, 0, 0.22),
+        transparent 60%
+      ),
+      radial-gradient(
+        26rem 26rem at 88% 30%,
+        rgba(24, 119, 242, 0.28),
+        transparent 62%
+      ),
+      radial-gradient(
+        28rem 28rem at 70% 96%,
+        rgba(29, 185, 84, 0.22),
+        transparent 60%
+      ),
+      #111319;
+
+    app-waving-logo {
+      transform: scale(0.92);
+      transform-origin: left center;
+      margin-bottom: 6px;
+    }
+  }
+
+  .hero-title {
+    margin: 0;
+    font-size: 40px;
+    color: #fff;
+  }
+
+  .hero-sub {
+    margin: 0;
+    max-width: 30ch;
+    font-size: 15px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.62);
+    font-weight: 500;
+  }
+
+  .content {
+    flex: 1;
+    justify-content: center;
+    padding: 48px 56px;
+    background: #fff;
+  }
+
+  // Mobile-only helpers are removed on desktop.
+  .inline-logo,
+  .spacer-3,
+  .spacer-2 {
+    display: none;
+  }
+
+  // Cap the form width so inputs don't stretch awkwardly.
+  .username,
+  .enter {
+    max-width: 360px;
+  }
+}

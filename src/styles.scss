@@ -1,0 +1,55 @@
+@use 'theme' as t;
+
+// Global resets + base typography. White-on-light throughout.
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: t.$font-family;
+  color: t.$ink;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// On wide screens the app sits on an atmospheric branded stage.
+@media (min-width: t.$bp-desktop) {
+  body {
+    @include t.stage;
+  }
+}
+
+app-root {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+// Display headline helper used by desktop hero panes.
+.display {
+  font-family: t.$font-display;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+
+button {
+  font-family: inherit;
+}
+
+// Sensitive views opt into this to discourage casual copy of account data.
+// Best-effort only — it does not prevent screenshots or OS-level capture.
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+}

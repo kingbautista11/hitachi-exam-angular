@@ -1,0 +1,80 @@
+// Brand palette + shared style helpers. Colors match the brand assets and the
+// design mockups.
+
+// ---- Brand colors -------------------------------------------------------
+$youtube: #ff0000;
+$spotify: #1db954;
+$facebook: #1877f2;
+$orange: #ffa000;
+
+// Action colors
+$enter-green: #5cb85c;
+
+// Refined neutral palette
+$ink: #1b1d22;
+$subtle: #8a9099;
+$hairline: #e8eaed;
+$surface: #f6f7f9;
+
+$font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+  sans-serif;
+
+// Distinctive display face used for desktop hero headlines.
+$font-display: 'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui,
+  sans-serif;
+
+// Breakpoints. Below $bp-tablet = the faithful mobile port. Between the two =
+// the same single-column layout scaled up to fill a tablet's width. At/above
+// $bp-desktop = the branded desktop stage.
+$bp-tablet: 600px;
+$bp-desktop: 900px;
+// Upper bound for tablet-only rules so they never overlap the desktop stage.
+$bp-tablet-max: 899.98px;
+
+// The atmospheric desktop backdrop — a near-black canvas with soft glows placed
+// where the three brand tiles sit, plus a faint film grain. Brand color as
+// accent light, never as flat fill.
+@mixin stage {
+  background-color: #0c0d11;
+  background-image:
+    radial-gradient(
+      42rem 42rem at 18% 22%,
+      rgba(255, 0, 0, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      38rem 38rem at 50% 38%,
+      rgba(29, 185, 84, 0.16),
+      transparent 60%
+    ),
+    radial-gradient(
+      46rem 46rem at 82% 30%,
+      rgba(24, 119, 242, 0.2),
+      transparent 62%
+    ),
+    radial-gradient(
+      40rem 40rem at 70% 92%,
+      rgba(255, 160, 0, 0.12),
+      transparent 60%
+    ),
+    // fine grain
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+}
+
+// ---- Elevation ----------------------------------------------------------
+// Soft, layered shadow used for cards and tiles.
+// Pass $color to tint the shadow into a colored glow (e.g. under a button).
+@function soft-shadow(
+  $y: 10px,
+  $blur: 26px,
+  $opacity: 0.1,
+  $color: #000000
+) {
+  @return 0 #{$y} #{$blur} rgba($color, $opacity),
+    0 #{$y * 0.3} #{$blur * 0.3} rgba($color, $opacity * 0.4);
+}
+
+@mixin soft-shadow($y: 10px, $blur: 26px, $opacity: 0.1, $color: #000000) {
+  box-shadow: soft-shadow($y, $blur, $opacity, $color);
+}

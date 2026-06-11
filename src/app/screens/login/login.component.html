@@ -1,0 +1,67 @@
+<div class="screen">
+  <!-- Desktop-only brand hero (left pane). Hidden on mobile. -->
+  <aside class="hero">
+    <app-waving-logo [animate]="false"></app-waving-logo>
+    <h1 class="display hero-title">Your brands,<br />one tap away.</h1>
+    <p class="hero-sub">
+      YouTube, Spotify, Facebook and more — sign in to pick up where you left off.
+    </p>
+  </aside>
+
+  <div class="content" @entrance>
+    <div class="spacer-3"></div>
+
+    <app-waving-logo class="inline-logo" [animate]="false"></app-waving-logo>
+
+    <div class="spacer-3"></div>
+
+    <input
+      class="username"
+      [class.error]="usernameErr() !== null"
+      type="text"
+      placeholder="Username"
+      autocomplete="username"
+      autocapitalize="none"
+      autocorrect="off"
+      spellcheck="false"
+      [value]="username()"
+      (input)="onInput($any($event.target).value)"
+      (keyup.enter)="onEnter()"
+    />
+
+    @if (usernameErr() !== null) {
+      <p class="field-error">{{ usernameErr() }}</p>
+    }
+
+    <button
+      type="button"
+      class="enter"
+      [class.enabled]="canEnter()"
+      [disabled]="!canEnter()"
+      (click)="onEnter()"
+    >
+      Enter
+    </button>
+
+    <div class="spacer-2"></div>
+  </div>
+</div>
+
+@if (showPin()) {
+  <app-pin-dialog
+    (submitted)="onPinSubmitted($event)"
+    (closed)="onPinClosed()"
+  ></app-pin-dialog>
+}
+
+@if (errorMsg() !== null) {
+  <div class="alert-backdrop">
+    <div class="alert" role="alertdialog" aria-modal="true">
+      <div class="alert-title">Error</div>
+      <div class="alert-body">{{ errorMsg() }}</div>
+      <button type="button" class="alert-action" (click)="dismissError()">
+        Close
+      </button>
+    </div>
+  </div>
+}

@@ -1,0 +1,36 @@
+<div class="screen">
+  <header class="appbar">
+    <button type="button" class="back" (click)="back()" aria-label="Back">
+      <img src="assets/ic-arrow-back.svg" alt="" />
+    </button>
+    <span class="title">Others</span>
+  </header>
+
+  <p class="hint">You might also like</p>
+
+  <div class="viewport">
+    <div class="track" [style.transform]="trackOffset">
+      @for (brand of brands; track brand.name; let i = $index) {
+        <div class="card-slot">
+          <div class="card" [class.active]="current() === i">
+            <img [src]="brand.asset" [alt]="brand.name" />
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="brand-name">{{ name }}</div>
+
+  <div class="dots">
+    @for (brand of brands; track brand.name; let i = $index) {
+      <span class="dot" [class.active]="current() === i" (click)="select(i)"></span>
+    }
+  </div>
+
+  <div class="cta">
+    <button type="button" class="visit" (click)="visit()">
+      Visit {{ name }} Website
+    </button>
+  </div>
+</div>
